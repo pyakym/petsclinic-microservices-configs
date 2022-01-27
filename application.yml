@@ -4,11 +4,16 @@ server:
   # The stop processing uses a timeout which provides a grace period during which existing requests will be allowed to complete but no new requests will be permitted
   shutdown: graceful
 
-# embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
   datasource:
-    schema: classpath*:db/hsqldb/schema.sql
-    data: classpath*:db/hsqldb/data.sql
+    url: jdbc:mysql://localhost:3306/petsclinic?useSSL=false
+    username: root
+    password: root
+  sql:
+    init:
+      data-locations: classpath*:db/mysql/data.sql
+      schema-locations: classpath*:db/mysql/schema.sql
+      mode: always
   sleuth:
     sampler:
       probability: 1.0
