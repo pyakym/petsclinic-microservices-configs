@@ -1,0 +1,26 @@
+# COMMON APPLICATION PROPERTIES
+server:
+  port: 0
+  # The stop processing uses a timeout which provides a grace period during which existing requests will be allowed to complete but no new requests will be permitted
+  shutdown: graceful
+
+# embedded database init, supports mysql too trough the 'mysql' spring profile
+spring:
+  datasource:
+    schema: classpath*:db/hsqldb/schema.sql
+    data: classpath*:db/hsqldb/data.sql
+  sleuth:
+    sampler:
+      probability: 1.0
+  cloud:
+    config:
+      # Allow the microservices to override the remote properties with their own System properties or config file
+      allow-override: true
+      # Override configuration with any local property source
+      override-none: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+
+logging.level.com.petsclinic: INFO
